@@ -36,17 +36,14 @@ namespace RottenTomatoes.Controllers
             {
                 await userManager.CreateAsync(new AppUser { UserName = "VladSav",
                 Email = "vladsav@gmail.com"}, "123vladsav");
-                await userManager.AddToRoleAsync(new AppUser
-                {
-                    UserName = "VladSav",
-                    Email = "vladsav@gmail.com"
-                }, "Administrator");
+                await userManager.AddToRoleAsync(userManager.FindByNameAsync("VladSav").Result
+                    , "Administrator");
             }
 
-            if (HttpContext.User.IsInRole("Artist"))
-                return RedirectToAction("Index", "A");
-            else if (HttpContext.User.IsInRole("Listener"))
-                return RedirectToAction("Index", "Listener");
+            //if (HttpContext.User.IsInRole("Artist"))
+            //    return RedirectToAction("Index", "A");
+            //else if (HttpContext.User.IsInRole("Listener"))
+            //    return RedirectToAction("Index", "Listener");
            
            // return View("~/Views/Song/RecentlyAdded.cshtml");
             return View();
